@@ -241,7 +241,7 @@ if __name__ == '__main__':
         startdate = '26/03/2020'
         dayone = datetime.strptime(startdate, '%d/%m/%Y')
         rate = 1.56
-        start_val = 187999#200000
+        start_val = 200000
         term = 5
         monthly_payment = 756.2
         payday = 1
@@ -252,7 +252,7 @@ if __name__ == '__main__':
 
         input_anyops = 'y'  # Would you like to make any overpayments?
         input_maxops = 'n'  # Would you like to make the maximum ammount?
-        list_ops = [18799, 5000, 5000, 5000, 5000, 5000]
+        list_ops = [0, 5000, 5000, 5000, 5000, 5000]
 
     # Input custom data:
     elif args.profile=='userinput':
