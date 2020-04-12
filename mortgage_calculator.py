@@ -241,7 +241,7 @@ if __name__ == '__main__':
         startdate = '26/03/2020'
         dayone = datetime.strptime(startdate, '%d/%m/%Y')
         rate = 1.56
-        start_val = 200000
+        start_val = 187999#200000
         term = 5
         monthly_payment = 756.2
         payday = 1
@@ -252,7 +252,7 @@ if __name__ == '__main__':
 
         input_anyops = 'y'  # Would you like to make any overpayments?
         input_maxops = 'n'  # Would you like to make the maximum ammount?
-        list_ops = [0, 5000, 5000, 5000, 5000, 5000]
+        list_ops = [18799, 5000, 5000, 5000, 5000, 5000]
 
     # Input custom data:
     elif args.profile=='userinput':
@@ -370,6 +370,8 @@ if __name__ == '__main__':
     if remaining_days(dayone) != 0:
         print('   In the first {0:d} days, £{1:,.2f} of interest accrued.'
               .format(remaining_days(dayone), our_mgage.store_int[0]))
+    print('   The initial balance is £{:,.2f}'
+          .format(our_mgage.store_bal[0]))
     print('')
 
     # Intermediate printouts
@@ -379,8 +381,7 @@ if __name__ == '__main__':
                                         datetime(dayone.year + yr, 1, 1))))
 
         print('   The balance after the {:d}{} twelve months is £{:,.2f}'
-              .format(yr, suffix(yr), sum(our_mgage.store_bal[12*(
-                yr-1):12*yr])))
+              .format(yr, suffix(yr), our_mgage.store_bal[12*yr-1]))
         print('')
 
     lastday = datetime(dayone.year + term, dayone.month, dayone.day) \
