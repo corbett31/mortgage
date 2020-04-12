@@ -233,7 +233,7 @@ if __name__ == '__main__':
             effdur = term + 1
 
         input_anyops = 'y'  # Would you like to make any overpayments?
-        input_maxops = 'n'  # Would you like to make the maximum ammount?
+        input_maxops = 'n'  # Would you like to make the maximum amount?
         list_ops = [0, 5000, 6000, 10000, 11000, 8000]
 
     # Input automatice data: 'katandy'
@@ -251,7 +251,7 @@ if __name__ == '__main__':
             effdur = term + 1
 
         input_anyops = 'y'  # Would you like to make any overpayments?
-        input_maxops = 'n'  # Would you like to make the maximum ammount?
+        input_maxops = 'n'  # Would you like to make the maximum amount?
         list_ops = [0, 5000, 5000, 5000, 5000, 5000]
 
     # Input custom data:
@@ -275,7 +275,7 @@ if __name__ == '__main__':
 
         # Monthly payment
         monthly_payment = float(input(
-            'Enter your monthly payment ammount:\n'))
+            'Enter your monthly payment amount:\n'))
 
         # Monthly payment date
         first_payday = first_paydate(dayone,int(input(
@@ -307,7 +307,7 @@ if __name__ == '__main__':
         if input_anyops == 'y' and input_maxops == 'n':
             list_ops = []
             for yr in range(effdur):
-                list_ops.append(float(input('Enter the ammount you wish to over '
+                list_ops.append(float(input('Enter the amount you wish to over '
                                            'pay in year {:d}:\n'.format(yr))))
 
 
@@ -396,7 +396,7 @@ print(' - The amount £{:,.2f} was paid in over payments'
       .format(sum(our_mgage.store_ops)))
 print(' - The amount £{:,.2f} was paid in monthly payments'
       .format(monthly_payment * term * 12))
-print(' - Total interest acrued was £{:,.2f}'
+print(' - Total interest accrued was £{:,.2f}'
     .format(sum(our_result.store_int)))
 print(' - This interest is on average £{:,.2f} per month\n'
       .format(sum(our_result.store_int) / (12 * term)))
@@ -407,7 +407,7 @@ if make_anyops==True and make_maxops == False:
     print(' - Final balance is £{:,.2f}'.format(max_result.baldue))
     print(' - The amount £{:,.2f} was paid in over payments'
           .format(sum(max_mgage.store_ops)))
-    print(' - Total interest acrued was £{:,.2f}'
+    print(' - Total interest accrued was £{:,.2f}'
           .format(sum(max_result.store_int)))
     print(' - This interest is on average £{:,.2f} per month\n'
           .format(sum(max_result.store_int) / (12 * term)))
@@ -418,7 +418,7 @@ if make_anyops==True and make_maxops == False:
     print(' - Final balance: £{:,.2f}'.format(nil_result.baldue))
     print(' - The amount £{:,.2f} was paid in over payments'
           .format(sum(nil_mgage.store_ops)))
-    print(' - Total interest acrued: £{:,.2f}'.
+    print(' - Total interest accrued: £{:,.2f}'.
           format(sum(nil_result.store_int)))
     print(' - This interest is on average £{:,.2f} per month\n'
           .format(sum(nil_result.store_int) / (12 * term)))
