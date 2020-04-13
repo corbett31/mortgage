@@ -93,11 +93,9 @@ class Calendar(object):
 
     def shuffle_calendar(self, startmonth, startyear):
         """Shuffle startmonth to the front with preceding months behind."""
-        if startmonth <= 2:
-            cal = self.calendar(startyear)
-        elif startmonth > 2:
-            cal = self.calendar(startyear + 1)
-        return cal[startmonth:] + cal[:startmonth]
+        calendar = self.calendar(startyear) if startmonth <= 2 else self.calendar(startyear + 1)
+
+        return calendar[(startmonth - 1):] + calendar[:(startmonth - 1)]
 
 
 class MortgageInitiation(object):
