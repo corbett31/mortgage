@@ -132,7 +132,8 @@ class MortgageInitiation(object):
         self.tally_int(self.first_interest())
 
         # Update balance_due
-        self.balance_due = self.balance_due - self.first_payment + self.first_interest()
+        self.balance_due = self.balance_due - self.first_payment + \
+                           self.first_interest()
         self.store_balance = []
         self.tally_bal(self.balance_due)
 
@@ -191,8 +192,8 @@ def mortgage_projector(mortgage, rate, term, monthly_payment, first_payday):
         mortgage.tally_int(mth_interest)
 
         # New balance
-        mortgage.balance_due = mortgage.balance_due + mth_interest - monthly_payment - \
-                       mth_overpayment
+        mortgage.balance_due = mortgage.balance_due + mth_interest \
+                               - monthly_payment - mth_overpayment
         mortgage.tally_bal(mortgage.balance_due)
 
     return mortgage
@@ -240,8 +241,8 @@ if __name__ == '__main__':
     elif args.profile=='userinput':
 
         # First day
-        dayone = datetime.strptime(input('Enter the date your mortgage begins '
-                                       '[dd/mm/yyyy]:\n'), '%d/%m/%Y')
+        dayone = datetime.strptime(input(
+            'Enter the date your mortgage begins [dd/mm/yyyy]:\n'), '%d/%m/%Y')
 
         # Interest rate
         rate = float(input(
@@ -289,8 +290,9 @@ if __name__ == '__main__':
         if input_anyops == 'y' and input_maxops == 'n':
             list_ops = []
             for yr in range(effdur):
-                list_ops.append(float(input('Enter the amount you wish to over '
-                                           'pay in year {:d}:\n'.format(yr))))
+                list_ops.append(float(input(
+                    'Enter the amount you wish to over pay in year {:d}:\n'
+                    .format(yr))))
 
 
     # Introduce truth value make_anyops and extend list_ops to this case
@@ -351,7 +353,8 @@ if __name__ == '__main__':
 
     if remaining_days_in_month(dayone) != 0:
         print('   In the first {0:d} days, £{1:,.2f} of interest accrued.'
-              .format(remaining_days_in_month(dayone), our_mortgage.store_int[0]))
+              .format(remaining_days_in_month(dayone),
+                      our_mortgage.store_int[0]))
     print('   The initial balance is £{:,.2f}'
           .format(our_mortgage.store_balance[0]))
     print('')
