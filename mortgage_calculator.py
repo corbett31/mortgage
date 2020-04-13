@@ -9,7 +9,7 @@ suffix(day)
 isleap(year)
 first_paydate(dayone, first_payday)
 daily_rate(rate, year)
-remaining_days(date)
+remaining_days_in_month(date)
 mortgage_projector(self, mortgage, term, monthly_payment, first_payday)
 
 Classes:
@@ -38,8 +38,7 @@ args = parser.parse_args()
 # Customise date suffixes
 def format_date(format, date):
     """Add suffix to strftime"""
-    return date.strftime(format).replace('{suf}',
-                                         str(date.day) + suffix(date.day))
+    return date.strftime(format).replace('{suf}', suffix(date.day))
 
 def suffix(day):
     """Identify the suffix of a day"""
@@ -49,7 +48,7 @@ def suffix(day):
         return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
 
 # My date format
-my_date_format = '%A, {suf} %B \'%y' # Thursday, 26th March '20
+my_date_format = '%A, %-d{suf} %B \'%y' # Thursday, 26th March '20
 
 def is_leap(year):
     """Answer: is 'year' a leap year?"""
@@ -60,54 +59,37 @@ def is_leap(year):
 
 def first_paydate(dayone, payday):
     """Compute the date of the first monthly payment."""
-    if dayone.day <= payday:
-        paymonth = dayone.month
-        payear = dayone.year
-    elif dayone.day > payday:
-        paymonth = dayone.month + 1
-        if dayone.year != 12:
-            payear = dayone.year
-        elif dayone.year == 12:
-            payear = dayone.year + 1
-    return datetime(payear, paymonth, payday)
+    return next_date_from_start_date(dayone, payday)
+
+def next_date_from_start_date(start_date, day):
+    if start_date.day <= day:
+        return datetime(start_date.year, start_date.month, day)
+    elif start_date.day > day:
+        if start_date.month == 12:
+          return datetime(start_date.year + 1, 1, day)
+        else:
+          return datetime(start_date.year, start_date.month + 1, day)
 
 def daily_rate(rate, year):
     """Convert percentage yearly rate to a fractional daily rate."""
-    if year % 4 == 0:
-        dr = rate * 0.01 / 366
-    elif year % 4 != 0:
-        dr = rate * 0.01 / 365
-    return dr
+    days_in_year = 366 if is_leap(year) else 365
+    return rate * 0.01 / days_in_year
 
-def remaining_days(date):
+def remaining_days_in_month(date):
     """Computes the number of days until the next 1st of the month.
 
     This number includes 'date' but excludes the 1st of the month.
     """
-    if date.day != 1:
-        yjump = date.year + (date.month // 12)
-        mjump = (date.month + 1) % 12
-        lastfew = datetime(yjump, mjump, 1) - date
-        return lastfew.days
-    else:
-        return 0
-
+    date_of_next_first = next_date_from_start_date(date, 1)
+    return (date_of_next_first - date).days
 
 class Calendar(object):
     """Calendars and permutations thereof."""
 
-    def __init__(self):
-        super(Calendar, self).__init__()
-        self.days366 = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        self.days365 = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
     def calendar(self, year):
         """Select the appropriate calendar for the year"""
-        if is_leap(year):  # leap year
-            cal = self.days366
-        elif not is_leap(year):
-            cal = self.days365
-        return cal
+        feb_days = 29 if is_leap(year) else 28
+        return [31, feb_days, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
     def shuffle_calendar(self, startmonth, startyear):
         """Shuffle startmonth to the front with preceding months behind."""
@@ -164,10 +146,10 @@ class MortgageInitiation(object):
             return min(self.list_ops[year], 0.1 * balance)
 
     def first_interest(self):
-        return remaining_days(self.dayone) * \
+        return remaining_days_in_month(self.dayone) * \
                daily_rate(self.rate, self.dayone.year) * \
                self.balance_due - \
-               remaining_days(self.first_payday) * \
+               remaining_days_in_month(self.first_payday) * \
                daily_rate(self.rate, self.first_payday.year) * \
                self.first_payment
 
@@ -367,9 +349,9 @@ if __name__ == '__main__':
             our_mortgage.store_ops[0], format_date(my_date_format,
                                                  dayone)))
 
-    if remaining_days(dayone) != 0:
+    if remaining_days_in_month(dayone) != 0:
         print('   In the first {0:d} days, £{1:,.2f} of interest accrued.'
-              .format(remaining_days(dayone), our_mortgage.store_int[0]))
+              .format(remaining_days_in_month(dayone), our_mortgage.store_int[0]))
     print('   The initial balance is £{:,.2f}'
           .format(our_mortgage.store_balance[0]))
     print('')
