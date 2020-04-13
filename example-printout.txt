@@ -1,0 +1,51 @@
+Last login: Sun Apr 12 20:16:44 on console
+andrewcorbett@Mr-Holmes Python % cd pypractice/mortgage
+andrewcorbett@Mr-Holmes mortgage % python mortgage_calculator.py --profile=example
+
+Mortgage projection
+
+Ammount borrowed: £200,000.00
+Annual interest rate: 2.0%
+Daily interest rate: 0.005464% (leap year), 0.005479% (short year)
+
+ - The first over payment of £0.00 is paid on Thursday, 4th July '19
+   In the first 28 days, £306.19 of interest accrued.
+   The initial balance is £199,506.19
+
+ - An over payment of £5,000.00 is paid on Wednesday, 1st January '20
+   The balance after the 1st twelve months is £189,272.44
+
+ - An over payment of £6,000.00 is paid on Friday, 1st January '21
+   The balance after the 2nd twelve months is £177,343.15
+
+ - An over payment of £10,000.00 is paid on Saturday, 1st January '22
+   The balance after the 3rd twelve months is £161,145.56
+
+ - An over payment of £11,000.00 is paid on Sunday, 1st January '23
+   The balance after the 4th twelve months is £143,612.84
+
+ - An over payment of £8,000.00 is paid on Monday, 1st January '24
+   The balance after the 5th twelve months is £128,754.41
+
+End date: Wednesday, 3rd July '24
+
+Mortgage summary:
+ - Final balance is £127,975.52
+ - The amount £40,000.00 was paid in over payments
+ - The amount £48,000.00 was paid in monthly payments
+ - Total interest accrued was £16,775.52
+ - This interest is on average £279.59 per month
+
+If maximum overpayments were made:
+ - Final balance is £77,901.80
+ - The amount £85,993.37 was paid in over payments
+ - Total interest accrued was £12,695.17
+ - This interest is on average £211.59 per month
+
+If no overpayments were made:
+ - Final balance: £169,739.39
+ - The amount £0.00 was paid in over payments
+ - Total interest accrued: £18,539.39
+ - This interest is on average £308.99 per month
+
+Time to remortgage
